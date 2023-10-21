@@ -48,6 +48,31 @@ void render_screen(Bar player_bar, Bar enemy_bar)
 {
     system("clear");
     
+    // render outline
+    for (int i = 0; i < WINDOW_WIDTH; i++)
+    {
+        std::cout << "\e[" << 0 << ";" << i << "H";
+        std::cout << FILLED_SQUARE;
+    }
+
+    for (int i = 0; i <= WINDOW_WIDTH; i++)
+    {
+        std::cout << "\e[" << WINDOW_HEIGHT << ";" << i << "H";
+        std::cout << FILLED_SQUARE;
+    }
+
+    for (int i = 0; i < WINDOW_HEIGHT; i++)
+    {
+        std::cout << "\e[" << i << ";" << WINDOW_WIDTH << "H";
+        std::cout << FILLED_SQUARE;
+    }
+
+    for (int i = 0; i < WINDOW_HEIGHT; i++)
+    {
+        std::cout << "\e[" << i << ";" << 0 << "H";
+        std::cout << FILLED_SQUARE;
+    }
+
     // render bars
     for (int i = 0; i < player_bar.width; i++)
     {
@@ -71,21 +96,13 @@ void render_screen(Bar player_bar, Bar enemy_bar)
 
 void process_input(std::string user_input, Bar& bar)
 {
-    if (user_input == "w")
+    if (user_input == "w" && bar.y - 2 > 0)
     {
         bar.y--;
     }
-    else if (user_input == "s")
+    else if (user_input == "s" && bar.y + bar.height + 1 <= WINDOW_HEIGHT)
     {
         bar.y++;
-    }
-    else if (user_input == "a")
-    {
-        bar.x--;
-    }
-    else if (user_input == "d")
-    {
-        bar.x++;
     }
 }
 
